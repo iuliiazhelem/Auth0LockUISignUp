@@ -11,7 +11,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         A0Lock.sharedLock().applicationLaunchedWithOptions(launchOptions)
         
@@ -48,4 +47,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return A0Lock.sharedLock().handleURL(url, sourceApplication: sourceApplication)
     }
 }
-

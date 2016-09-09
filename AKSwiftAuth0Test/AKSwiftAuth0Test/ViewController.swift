@@ -16,22 +16,26 @@ class ViewController: UIViewController {
     @IBAction func clickLockVCButton(sender: AnyObject) {
         let controller = A0Lock.sharedLock().newLockViewController()
         controller.closable = true
-        controller.loginAfterSignUp = true//false
+        controller.loginAfterSignUp = true
+        
         controller.onAuthenticationBlock = { (profile, token) in
             // Do something with token & profile. e.g.: save them.
             // If loginAfterSignUp - NO, profile and token will be nil
             self.showUserProfile(profile)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
+        
         controller.onUserDismissBlock = { () in
             print("User closed Lock UI")
         }
+        
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
     // Open Lock UI with Custom SignUp View
     @IBAction func clickCustomSighUpButton(sender: AnyObject) {
         let controller = A0Lock.sharedLock().newLockViewController()
+        
         controller.onAuthenticationBlock = { (profile, token) in
             // Do something with token & profile. e.g.: save them.
             // If loginAfterSignUp - NO, profile and token will be nil
@@ -71,4 +75,3 @@ class ViewController: UIViewController {
         }
     }
 }
-

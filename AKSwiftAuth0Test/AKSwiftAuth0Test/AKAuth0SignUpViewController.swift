@@ -19,15 +19,14 @@ class AKAuth0SignUpViewController: UIViewController {
     @IBAction func clickSignUpButton(sender: AnyObject) {
         if (self.emailTextField.text?.characters.count < 1) {
             self.showMessage("Please eneter an email")
-            return;
+            return
         }
         if (self.passwordTextField.text?.characters.count < 1) {
             self.showMessage("Pelase eneter a password")
-            return;
+            return
         }
         
         let success = { (profile: A0UserProfile?, token: A0Token?) in
-            print("Success: \(profile?.name)")
             // Calls `onAuthenticationBlock` of `A0LockViewController` with token and profile
             if let actualToken = token {
                 if let actualProfile = profile {
@@ -39,11 +38,12 @@ class AKAuth0SignUpViewController: UIViewController {
                 self.delegate.userAuthenticatedWithToken(A0Token(), profile: A0UserProfile())
             }
         }
+        
         let failure = { (error: NSError) in
             print("Oops something went wrong: \(error)")
         }
         
-        let client = A0Lock.sharedLock().apiClient()
+        let client = self.lock.apiClient()
         let params = A0AuthParameters.newDefaultParams()
         params[A0ParameterConnection] = kAuth0ConnectionType // Or your configured DB connection
         
@@ -52,12 +52,12 @@ class AKAuth0SignUpViewController: UIViewController {
     
     @IBAction func clickCloseButton(sender: AnyObject) {
         // Dismiss A0LockViewController, like tapping the close button if `closable` is true
-        self.delegate.dismissLock();
+        self.delegate.dismissLock()
     }
     
     @IBAction func clickBackButton(sender: AnyObject) {
         // Dismiss all custom UIViewControllers pushed inside Lock and shows it's main UI.
-        self.delegate.backToLock();
+        self.delegate.backToLock()
     }
     
     func showMessage(message: String) {

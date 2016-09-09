@@ -38,6 +38,7 @@ static NSString *kAuth0ConnectionType = @"Username-Password-Authentication";
         // Calls `onAuthenticationBlock` of `A0LockViewController` with token and profile
         [self.delegate userAuthenticatedWithToken:token profile:profile];
     };
+    
     A0APIClientError error = ^(NSError *error){
         NSLog(@"Oops something went wrong: %@", error);
         [self showMessage:@"Oops something went wrong"];
@@ -53,7 +54,6 @@ static NSString *kAuth0ConnectionType = @"Username-Password-Authentication";
                  parameters:params
                     success:success
                     failure:error];
-
 }
 
 - (IBAction)clickCloseButton:(id)sender {
@@ -66,8 +66,7 @@ static NSString *kAuth0ConnectionType = @"Username-Password-Authentication";
     [self.delegate backToLock];
 }
 
-- (void)showMessage:(NSString *)message
-{
+- (void)showMessage:(NSString *)message {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Auth0" message:message preferredStyle:UIAlertControllerStyleAlert];
         
