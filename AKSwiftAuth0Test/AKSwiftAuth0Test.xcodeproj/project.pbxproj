@@ -58,11 +58,11 @@
 			children = (
 				22B7F7841D2DAD16001F95BD /* AppDelegate.swift */,
 				22B7F7861D2DAD16001F95BD /* ViewController.swift */,
+				22B7F7961D2DBE3D001F95BD /* AKAuth0SignUpViewController.swift */,
 				22B7F7881D2DAD16001F95BD /* Main.storyboard */,
 				22B7F78B1D2DAD16001F95BD /* Assets.xcassets */,
 				22B7F78D1D2DAD16001F95BD /* LaunchScreen.storyboard */,
 				22B7F7901D2DAD16001F95BD /* Info.plist */,
-				22B7F7961D2DBE3D001F95BD /* AKAuth0SignUpViewController.swift */,
 			);
 			path = AKSwiftAuth0Test;
 			sourceTree = "<group>";

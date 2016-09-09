@@ -11,6 +11,9 @@
 - (IBAction)clickLockVCButton:(id)sender;
 - (IBAction)clickCustomSignUpButton:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userIdLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 @end
 
 @implementation ViewController
@@ -25,6 +28,7 @@
     controller.onAuthenticationBlock = ^(A0UserProfile *profile, A0Token *token) {
         // Do something with token & profile. e.g.: save them.
         // If loginAfterSignUp - NO, profile and token will be nil
+        [self showUserProfile:profile];
         [self dismissViewControllerAnimated:YES completion:nil];
     };
     controller.onUserDismissBlock = ^(){
@@ -42,6 +46,7 @@
     controller.closable = YES;
     controller.onAuthenticationBlock = ^(A0UserProfile *profile, A0Token *token) {
         // Do something with token & profile. e.g.: save them.
+        [self showUserProfile:profile];
         [self dismissViewControllerAnimated:YES completion:nil];
     };
     
@@ -60,6 +65,15 @@
         navController.modalPresentationStyle = UIModalPresentationFormSheet;
     }
     [self presentViewController:navController animated:YES completion:nil];
+}
+
+// Internal method
+- (void)showUserProfile:(A0UserProfile *)profile {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.usernameLabel.text = profile.name;
+        self.userIdLabel.text = profile.userId;
+        self.emailLabel.text = profile.email;
+    });
 }
 
 @end

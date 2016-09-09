@@ -14,16 +14,11 @@ class AKAuth0SignUpViewController: UIViewController {
     var delegate: A0LockEventDelegate!
 
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBAction func clickSignUpButton(sender: AnyObject) {
         if (self.emailTextField.text?.characters.count < 1) {
             self.showMessage("Please eneter an email")
-            return;
-        }
-        if (self.usernameTextField.text?.characters.count < 1) {
-            self.showMessage("Please eneter an username")
             return;
         }
         if (self.passwordTextField.text?.characters.count < 1) {
@@ -32,10 +27,17 @@ class AKAuth0SignUpViewController: UIViewController {
         }
         
         let success = { (profile: A0UserProfile?, token: A0Token?) in
-            print("Success: \(profile!.name)")
+            print("Success: \(profile?.name)")
             // Calls `onAuthenticationBlock` of `A0LockViewController` with token and profile
-            self.delegate.userAuthenticatedWithToken(token!, profile: profile!)
-
+            if let actualToken = token {
+                if let actualProfile = profile {
+                    self.delegate.userAuthenticatedWithToken(actualToken, profile: actualProfile)
+                } else {
+                    self.delegate.userAuthenticatedWithToken(actualToken, profile: A0UserProfile())
+                }
+            } else {
+                self.delegate.userAuthenticatedWithToken(A0Token(), profile: A0UserProfile())
+            }
         }
         let failure = { (error: NSError) in
             print("Oops something went wrong: \(error)")
@@ -45,8 +47,7 @@ class AKAuth0SignUpViewController: UIViewController {
         let params = A0AuthParameters.newDefaultParams()
         params[A0ParameterConnection] = kAuth0ConnectionType // Or your configured DB connection
         
-        client.signUpWithEmail(self.emailTextField.text!, username: self.usernameTextField.text!, password: self.passwordTextField.text!, loginOnSuccess: true, parameters: params, success: success, failure: failure)
-
+        client.signUpWithEmail(self.emailTextField.text!, password: self.passwordTextField.text!, loginOnSuccess: true, parameters: params, success: success, failure: failure)
     }
     
     @IBAction func clickCloseButton(sender: AnyObject) {

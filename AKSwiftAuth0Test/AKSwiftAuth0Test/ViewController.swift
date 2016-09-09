@@ -8,6 +8,10 @@ import Lock
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var userIdLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    
     // Open Lock UI with Lock SignUp View
     @IBAction func clickLockVCButton(sender: AnyObject) {
         let controller = A0Lock.sharedLock().newLockViewController()
@@ -16,6 +20,7 @@ class ViewController: UIViewController {
         controller.onAuthenticationBlock = { (profile, token) in
             // Do something with token & profile. e.g.: save them.
             // If loginAfterSignUp - NO, profile and token will be nil
+            self.showUserProfile(profile)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         controller.onUserDismissBlock = { () in
@@ -28,6 +33,9 @@ class ViewController: UIViewController {
     @IBAction func clickCustomSighUpButton(sender: AnyObject) {
         let controller = A0Lock.sharedLock().newLockViewController()
         controller.onAuthenticationBlock = { (profile, token) in
+            // Do something with token & profile. e.g.: save them.
+            // If loginAfterSignUp - NO, profile and token will be nil
+            self.showUserProfile(profile)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
@@ -46,6 +54,21 @@ class ViewController: UIViewController {
         }
         
         self.presentViewController(navController, animated: true, completion: nil)
+    }
+    
+    // Internal method
+    func showUserProfile(profile: A0UserProfile?) {
+        dispatch_async(dispatch_get_main_queue()) {
+            if let actualProfile = profile {
+                self.usernameLabel.text = actualProfile.name
+                self.emailLabel.text = actualProfile.email
+                self.userIdLabel.text = actualProfile.userId
+            } else {
+                self.usernameLabel.text = ""
+                self.emailLabel.text = ""
+                self.userIdLabel.text = ""
+            }
+        }
     }
 }
 

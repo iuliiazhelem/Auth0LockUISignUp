@@ -11,7 +11,6 @@ static NSString *kAuth0ConnectionType = @"Username-Password-Authentication";
 @interface AKAuth0SignUpViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
 - (IBAction)clickSignUpButton:(id)sender;
@@ -26,10 +25,6 @@ static NSString *kAuth0ConnectionType = @"Username-Password-Authentication";
     
     if (self.emailTextField.text.length < 1) {
         [self showMessage:@"Please eneter an email"];
-        return;
-    }
-    if (self.usernameTextField.text.length < 1) {
-        [self showMessage:@"Please eneter an username"];
         return;
     }
     if (self.passwordTextField.text.length < 1) {
@@ -53,7 +48,6 @@ static NSString *kAuth0ConnectionType = @"Username-Password-Authentication";
     params[A0ParameterConnection] = kAuth0ConnectionType; // Or your configured DB connection
     
     [client signUpWithEmail:self.emailTextField.text
-                   username:self.usernameTextField.text
                    password:self.passwordTextField.text
              loginOnSuccess:YES
                  parameters:params
