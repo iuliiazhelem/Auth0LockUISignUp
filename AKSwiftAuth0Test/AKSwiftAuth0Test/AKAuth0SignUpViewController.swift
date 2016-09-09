@@ -2,9 +2,6 @@
 //  AKAuth0SignUpViewController.swift
 //  AKSwiftAuth0Test
 //
-//  Created by Iuliia Zhelem on 07.07.16.
-//  Copyright © 2016 Akvelon. All rights reserved.
-//
 
 import UIKit
 import Lock
@@ -22,20 +19,21 @@ class AKAuth0SignUpViewController: UIViewController {
     
     @IBAction func clickSignUpButton(sender: AnyObject) {
         if (self.emailTextField.text?.characters.count < 1) {
-            self.showMessage("You need to eneter email")
+            self.showMessage("Please eneter an email")
             return;
         }
         if (self.usernameTextField.text?.characters.count < 1) {
-            self.showMessage("You need to eneter username")
+            self.showMessage("Please eneter an username")
             return;
         }
         if (self.passwordTextField.text?.characters.count < 1) {
-            self.showMessage("You need to eneter password")
+            self.showMessage("Pelase eneter a password")
             return;
         }
         
         let success = { (profile: A0UserProfile?, token: A0Token?) in
             print("Success: \(profile!.name)")
+            // Calls `onAuthenticationBlock` of `A0LockViewController` with token and profile
             self.delegate.userAuthenticatedWithToken(token!, profile: profile!)
 
         }
@@ -46,15 +44,18 @@ class AKAuth0SignUpViewController: UIViewController {
         let client = A0Lock.sharedLock().apiClient()
         let params = A0AuthParameters.newDefaultParams()
         params[A0ParameterConnection] = kAuth0ConnectionType // Or your configured DB connection
+        
         client.signUpWithEmail(self.emailTextField.text!, username: self.usernameTextField.text!, password: self.passwordTextField.text!, loginOnSuccess: true, parameters: params, success: success, failure: failure)
 
     }
     
     @IBAction func clickCloseButton(sender: AnyObject) {
+        // Dismiss A0LockViewController, like tapping the close button if `closable` is true
         self.delegate.dismissLock();
     }
     
     @IBAction func clickBackButton(sender: AnyObject) {
+        // Dismiss all custom UIViewControllers pushed inside Lock and shows it's main UI.
         self.delegate.backToLock();
     }
     

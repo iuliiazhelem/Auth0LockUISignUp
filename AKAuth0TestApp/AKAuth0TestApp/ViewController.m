@@ -2,9 +2,6 @@
 //  ViewController.m
 //  AKAuth0TestApp
 //
-//  Created by Iuliia Zhelem on 27.06.16.
-//  Copyright © 2016 Akvelon. All rights reserved.
-//
 
 #import "ViewController.h"
 #import <Lock/Lock.h>
@@ -12,13 +9,13 @@
 
 @interface ViewController ()
 - (IBAction)clickLockVCButton:(id)sender;
-- (IBAction)clickLockSignUpVCButton:(id)sender;
 - (IBAction)clickCustomSignUpButton:(id)sender;
 
 @end
 
 @implementation ViewController
 
+// Open Lock UI with Lock SignUp View
 - (IBAction)clickLockVCButton:(id)sender
 {
     A0Lock *lock = [A0Lock sharedLock];
@@ -37,18 +34,7 @@
 
 }
 
-- (IBAction)clickLockSignUpVCButton:(id)sender
-{
-    A0Lock *lock = [A0Lock sharedLock];
-    A0LockSignUpViewController *controller = [lock newSignUpViewController];
-    controller.loginAfterSignUp = NO;
-    controller.onAuthenticationBlock = ^(A0UserProfile *profile, A0Token *token) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    };
-    
-    [self presentViewController:controller animated:YES completion:nil];
-}
-
+// Open Lock UI with Custom SignUp View
 - (IBAction)clickCustomSignUpButton:(id)sender {
     A0Lock *lock = [A0Lock sharedLock];
     
@@ -75,4 +61,5 @@
     }
     [self presentViewController:navController animated:YES completion:nil];
 }
+
 @end

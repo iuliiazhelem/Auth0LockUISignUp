@@ -2,9 +2,6 @@
 //  AKAuth0SignUpViewController.m
 //  AKAuth0TestApp
 //
-//  Created by Iuliia Zhelem on 27.06.16.
-//  Copyright © 2016 Akvelon. All rights reserved.
-//
 
 #import "AKAuth0SignUpViewController.h"
 #import <Lock/Lock.h>
@@ -25,29 +22,25 @@ static NSString *kAuth0ConnectionType = @"Username-Password-Authentication";
 
 @implementation AKAuth0SignUpViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
 - (IBAction)clickSignUpButton:(id)sender {
     
     if (self.emailTextField.text.length < 1) {
-        [self showMessage:@"You need to eneter email"];
+        [self showMessage:@"Please eneter an email"];
         return;
     }
     if (self.usernameTextField.text.length < 1) {
-        [self showMessage:@"You need to eneter username"];
+        [self showMessage:@"Please eneter an username"];
         return;
     }
     if (self.passwordTextField.text.length < 1) {
-        [self showMessage:@"You need to eneter password"];
+        [self showMessage:@"Please eneter a password"];
         return;
     }
     
     A0APIClient *client = [self.lock apiClient];
     A0APIClientSignUpSuccess success = ^(A0UserProfile *profile, A0Token *token) {
         NSLog(@"Success: %@", profile.name);
+        // Calls `onAuthenticationBlock` of `A0LockViewController` with token and profile
         [self.delegate userAuthenticatedWithToken:token profile:profile];
     };
     A0APIClientError error = ^(NSError *error){
@@ -70,10 +63,12 @@ static NSString *kAuth0ConnectionType = @"Username-Password-Authentication";
 }
 
 - (IBAction)clickCloseButton:(id)sender {
+    // Dismiss A0LockViewController, like tapping the close button if `closable` is true
     [self.delegate dismissLock];
 }
 
 - (IBAction)clickBackButton:(id)sender {
+    // Dismiss all custom UIViewControllers pushed inside Lock and shows it's main UI.
     [self.delegate backToLock];
 }
 

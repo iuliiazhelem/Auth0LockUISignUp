@@ -2,9 +2,6 @@
 //  AppDelegate.m
 //  AKAuth0TestApp
 //
-//  Created by Iuliia Zhelem on 27.06.16.
-//  Copyright © 2016 Akvelon. All rights reserved.
-//
 
 #import "AppDelegate.h"
 #import <Lock/Lock.h>
@@ -17,9 +14,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     A0Lock *lock = [A0Lock sharedLock];
     [lock applicationLaunchedWithOptions:launchOptions];
+
+    // Add logging
     [A0LockLogger logAll];
     return YES;
 }
