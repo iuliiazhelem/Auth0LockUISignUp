@@ -14,7 +14,9 @@ pod 'Lock', '~> 1.26'
 
 ### Important Snippets
 #### Step 1: Create Sign Up View Controller.
-It which should contain delegate property (A0LockEventDelegate) and implement sign up logic with one of A0APIClient methods
+It which should contain delegate property (A0LockEventDelegate) and implement sign up logic with one of A0APIClient methods. Alos you can implement additional A0LockEventDelegate methods:
+- (void)backToLock - Dismiss all custom UIViewControllers pushed inside Lock and shows it's main UI.
+- (void)dismissLock - Dismiss A0LockViewController, like tapping the close button if `closable` is true
 
 ```Swif
 var lock: A0Lock!
