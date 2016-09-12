@@ -3,9 +3,9 @@
 This sample exposes how to create and use custom Sign Up View controller with Lock UI.
 
 You have several ways to implement Sign Up functionality with Lock UI.
-- You can just add or hide "Sign Up" button in Lock UI. For this you need to setup property "disableSignUp" of A0LockViewControllerwhich hides the Sign Up button. By default is NO.
-- You can use A0LockSignUpViewController directly
-- You can add your own Sign Up View Controller
+- You can just add or hide "Sign Up" button in Lock UI. For this you need to setup property `disableSignUp` of `A0LockViewController` which hides the Sign Up button. By default the value is set to `NO`.
+- You can use `A0LockSignUpViewController` directly
+- You can add your own Sign Up View Controller.
 
 You need to add the following to your `Podfile`:
 ```
@@ -14,11 +14,11 @@ pod 'Lock', '~> 1.26'
 
 ### Important Snippets
 #### Step 1: Create Sign Up View Controller.
-It which should contain delegate property (A0LockEventDelegate) and implement sign up logic with one of A0APIClient methods. Alos you can implement additional A0LockEventDelegate methods:
+It should contain the delegate property (A0LockEventDelegate) and implement the sign up logic with one of the `A0APIClient` methods. Also, you can implement additional `A0LockEventDelegate` methods if you want:
 - (void)backToLock - Dismiss all custom UIViewControllers pushed inside Lock and shows it's main UI.
 - (void)dismissLock - Dismiss A0LockViewController, like tapping the close button if `closable` is true
 
-```Swif
+```Swift
 var lock: A0Lock!
 var delegate: A0LockEventDelegate!
 
